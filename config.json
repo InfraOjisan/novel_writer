@@ -1,0 +1,94 @@
+{
+  "chapters": 8,
+  "chapter_chars": {
+    "target": 2500,
+    "min": 2300,
+    "max": 2900
+  },
+  "total_chars": {
+    "min": 19000,
+    "max": 22000
+  },
+  "canon_max_chars": 14000,
+  "max_attempts": 3,
+  "max_design_attempts": 3,
+  "max_parse_retries": 2,
+  "max_ledger_attempts": 2,
+  "prev_tail_chars": 600,
+  "ledger_recent_full": 2,
+  "packet_warn_chars": 120000,
+  "pause_after_canon": false,
+  "timeout_sec": 3600,
+  "writer_cmd": ["python3", "tools/call_llm.py", "{packet}", "writer"],
+  "reviewer_cmd": ["python3", "tools/call_llm.py", "{packet}", "reviewer"],
+  "call_env": {},
+  "llm": {
+    "base_url": "https://openrouter.ai/api/v1",
+    "app_title": "novelctl",
+    "app_url": "https://localhost/novelctl",
+    "api_key_env": ["NOVEL_LLM_API_KEY", "OPENROUTER_API_KEY", "HERMES_CUSTOM_OPENROUTER_API_KEY"],
+    "retries": 3,
+    "json_mode": true,
+    "profiles": {
+      "writer": {
+        "model": "aion-labs/aion-3.5-mini",
+        "temperature": 0.8,
+        "top_p": 0.95,
+        "max_tokens": 32000,
+        "reasoning_effort": "high",
+        "system": "あなたは日本語で書く小説家です。依頼文の指示と出力形式に厳密に従い、指定された成果物だけを返します。"
+      },
+      "reviewer": {
+        "model": "aion-labs/aion-3.5-mini",
+        "temperature": 0.2,
+        "max_tokens": 16000,
+        "reasoning_effort": "low",
+        "system": "あなたは厳格な小説編集者であり記録係です。依頼文の出力形式に厳密に従い、指定された成果物だけを返します。"
+      }
+    },
+    "task_overrides": {
+      "design": {
+        "temperature": 0.7
+      }
+    },
+    "idle_timeout_sec": 180
+  },
+  "slot_names": {
+    "F1": "異常の兆候",
+    "F2": "規則の隠れた前提",
+    "F3": "少女の真実",
+    "F4": "少年の真実",
+    "F5": "鍵",
+    "F6": "約束",
+    "R1": "偽の手がかり",
+    "C1": "世界の賭け金",
+    "M1": "反復モチーフ"
+  },
+  "slot_plan": {
+    "F1": [[1, "planted"], [3, "reinforced"], [5, "recovered"]],
+    "F2": [[2, "planted"], [6, "recovered"]],
+    "F3": [[1, "planted"], [4, "reinforced"], [6, "recovered"]],
+    "F4": [[3, "planted"], [7, "recovered"]],
+    "F5": [[2, "planted"], [4, "reinforced"], [7, "recovered"]],
+    "F6": [[4, "planted"], [8, "recovered"]],
+    "R1": [[2, "planted"], [3, "reinforced"], [5, "recovered"]],
+    "C1": [[2, "planted"], [5, "recovered"], [8, "reinforced"]],
+    "M1": [[1, "planted"], [4, "reinforced"], [8, "recovered"]]
+  },
+  "publish": {
+    "studio": "AI小説制作スタジオ",
+    "author": "チームジョバンニ",
+    "credits": [
+      ["プロデューサー", "くろだ"],
+      ["原案・構成", "くろだ／Claude"],
+      ["ディレクター", "Hermes Agent"],
+      ["執筆", "Aion 3.5 Mini"],
+      ["校正", "Claude"]
+    ],
+    "ai_disclosure": "本作の本文は生成AI（Aion 3.5 Mini）が執筆し、人間が企画・監修しました。",
+    "rating_url": "https://claude.ai/artifact/3wJpMjDnusJyhDPaGS7K8D",
+    "fallback_title": "無題",
+    "cover_image": "images/cover.jpg",
+    "frontispiece_image": "images/frontispiece.jpg"
+  }
+}
